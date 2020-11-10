@@ -1,6 +1,7 @@
 select
-    orderid as order_id,
-    sum(coalesce(amount, 0)) / 100 as amount
+    orderid AS order_id,
+    paymentmethod AS payment_method,
+    status,
+    coalesce(amount, 0) / 100 AS amount,
+    created
 from raw.stripe.payment
-where status = 'success'
-group by order_id
