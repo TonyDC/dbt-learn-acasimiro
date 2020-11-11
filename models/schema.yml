@@ -65,10 +65,10 @@ models:
   - name: stg_payments
     description: This model contains the payment data
     columns:
-      - name: order_id
-        description: Primary key
+      - name: status
+        description: The status of the payment
         tests:
-          - unique
-          - not_null
+          - accepted_values:
+              values: ["success", "fail"]
       - name: amount
         description: The total amount of the order (in dollars)

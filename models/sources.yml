@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: raw
+    tables:
+      - name: orders
+      - name: customers
+  - name: stripe
+    database: raw
+    tables:
+      - name: payment
+        columns:
+          - name: orderid
+            description: Order ID
+            tests:
+              - not_null
+          - name: status
+            description: payment status
+            tests:
+              - accepted_values:
+                  values: ["success", "fail"]
+        loaded_at_field: _batched_at
+        freshness:
+          warn_after: { count: 1, period: hour }
+          error_after: { count: 24, period: hour }

@@ -4,4 +4,4 @@ select
     status,
     coalesce(amount, 0) / 100 AS amount,
     created
-from raw.stripe.payment
+from {{ source('stripe', 'payment') }}
